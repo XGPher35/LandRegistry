@@ -16,13 +16,15 @@ pub mod land_registry {
         location: String, 
         area: String
     ) -> Result<()> {
+        // SECURITY FIX: Only allow government to register land
+        require!(ctx.accounts.owner.key() == GOV_KEY, CustomError::Unauthorized);
+
         let land = &mut ctx.accounts.land;
         land.id = land_id;
         land.location = location;
         land.area = area;
         land.owner = ctx.accounts.owner.key();
-        land.is_verified = true; // MVP: Owner registering is trusted or Gov does it. 
-        // Ideally, only Gov can call register_land.
+        land.is_verified = true; // Initially verified by gov official
         land.transfer_count = 0;
         Ok(())
     }
@@ -66,10 +68,29 @@ pub mod land_registry {
         if transfer_request.is_buyer_approved && transfer_request.is_gov_approved {
             land.owner = transfer_request.buyer;
             transfer_request.status = TransferStatus::Completed;
+            
+            // Emit Transfer Event
+            let clock = Clock::get()?;
+            emit!(TransferEvent {
+                land_id: land.id,
+                from: transfer_request.seller, // Use request seller as it's the original owner
+                to: transfer_request.buyer,
+                timestamp: clock.unix_timestamp,
+                transfer_count: land.transfer_count, // Or request id? User asked for land transfer count.
+            });
         }
 
         Ok(())
     }
+}
+
+#[event]
+pub struct TransferEvent {
+    pub land_id: u64,
+    pub from: Pubkey,
+    pub to: Pubkey,
+    pub timestamp: i64,
+    pub transfer_count: u64,
 }
 
 #[account]

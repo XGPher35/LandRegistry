@@ -182,5 +182,59 @@
                 ]
             }
         }
+    ],
+    "events": [
+        {
+            "name": "TransferEvent",
+            "fields": [
+                {
+                    "name": "landId",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "from",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "to",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "timestamp",
+                    "type": "i64",
+                    "index": false
+                },
+                {
+                    "name": "transferCount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "Unauthorized",
+            "msg": "Unauthorized"
+        },
+        {
+            "code": 6001,
+            "name": "RequestNotPending",
+            "msg": "Request is not pending"
+        },
+        {
+            "code": 6002,
+            "name": "UnauthorizedSigner",
+            "msg": "Unauthorized signer"
+        },
+        {
+            "code": 6003,
+            "name": "InvalidLandAccount",
+            "msg": "Invalid Land Account"
+        }
     ]
 }
