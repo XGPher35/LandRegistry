@@ -1,6 +1,8 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program;
+use anchor_lang::solana_program::pubkey;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
 
 // Hardcoded Government Official Key for MVP (Replace with real key in production)
 // For local testing, we might need to swap this.
@@ -107,7 +109,7 @@ pub struct RegisterLand<'info> {
         init,
         payer = owner,
         space = 8 + 8 + 200 + 50 + 32 + 1 + 8, // Added space for transfer_count
-        seeds = [b"land", &land_id.to_le_bytes()],
+        seeds = [b"land".as_ref(), land_id.to_le_bytes().as_ref()],
         bump
     )]
     pub land: Account<'info, Land>,
@@ -124,7 +126,7 @@ pub struct InitiateTransfer<'info> {
         init,
         payer = owner,
         space = 8 + 8 + 8 + 32 + 32 + 2 + 2,
-        seeds = [b"transfer", land.key().as_ref(), land.transfer_count.to_le_bytes()],
+        seeds = [b"transfer".as_ref(), land.key().as_ref(), land.transfer_count.to_le_bytes().as_ref()],
         bump
     )]
     pub transfer_request: Account<'info, TransferRequest>,

@@ -1,186 +1,307 @@
 {
-    "version": "0.1.0",
+  "address": "71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp",
+  "metadata": {
     "name": "land_registry",
-    "metadata": {
-        "address": "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "approve_transfer",
+      "discriminator": [
+        198,
+        217,
+        247,
+        150,
+        208,
+        60,
+        169,
+        244
+      ],
+      "accounts": [
+        {
+          "name": "transfer_request",
+          "writable": true
+        },
+        {
+          "name": "land",
+          "writable": true
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
     },
-    "instructions": [
+    {
+      "name": "initiate_transfer",
+      "discriminator": [
+        128,
+        229,
+        77,
+        5,
+        65,
+        234,
+        228,
+        75
+      ],
+      "accounts": [
         {
-            "name": "registerLand",
-            "accounts": [
-                {
-                    "name": "land",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "owner",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": [
-                {
-                    "name": "landId",
-                    "type": "u64"
-                },
-                {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
-                    "type": "string"
-                }
+          "name": "land",
+          "writable": true
+        },
+        {
+          "name": "transfer_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  114,
+                  97,
+                  110,
+                  115,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "land"
+              },
+              {
+                "kind": "account",
+                "path": "land.transfer_count",
+                "account": "Land"
+              }
             ]
+          }
         },
         {
-            "name": "initiateTransfer",
-            "accounts": [
-                {
-                    "name": "land",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "transferRequest",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "owner",
-                    "isMut": true,
-                    "isSigner": true
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": [
-                {
-                    "name": "buyer",
-                    "type": "publicKey"
-                }
+          "name": "owner",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "land"
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "buyer",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "register_land",
+      "discriminator": [
+        19,
+        138,
+        95,
+        50,
+        179,
+        68,
+        57,
+        239
+      ],
+      "accounts": [
+        {
+          "name": "land",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "land_id"
+              }
             ]
+          }
         },
         {
-            "name": "approveTransfer",
-            "accounts": [
-                {
-                    "name": "transferRequest",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "land",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "signer",
-                    "isMut": true,
-                    "isSigner": true
-                }
-            ],
-            "args": []
-        }
-    ],
-    "accounts": [
-        {
-            "name": "Land",
-            "type": {
-                "kind": "struct",
-                "fields": [
-                    {
-                        "name": "id",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "location",
-                        "type": "string"
-                    },
-                    {
-                        "name": "area",
-                        "type": "string"
-                    },
-                    {
-                        "name": "owner",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "isVerified",
-                        "type": "bool"
-                    },
-                    {
-                        "name": "transferCount",
-                        "type": "u64"
-                    }
-                ]
-            }
+          "name": "owner",
+          "writable": true,
+          "signer": true
         },
         {
-            "name": "TransferRequest",
-            "type": {
-                "kind": "struct",
-                "fields": [
-                    {
-                        "name": "id",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "landId",
-                        "type": "u64"
-                    },
-                    {
-                        "name": "seller",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "buyer",
-                        "type": "publicKey"
-                    },
-                    {
-                        "name": "status",
-                        "type": {
-                            "defined": "TransferStatus"
-                        }
-                    },
-                    {
-                        "name": "isBuyerApproved",
-                        "type": "bool"
-                    },
-                    {
-                        "name": "isGovApproved",
-                        "type": "bool"
-                    }
-                ]
-            }
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
-    ],
-    "types": [
+      ],
+      "args": [
         {
-            "name": "TransferStatus",
-            "type": {
-                "kind": "enum",
-                "variants": [
-                    {
-                        "name": "Pending"
-                    },
-                    {
-                        "name": "Completed"
-                    },
-                    {
-                        "name": "Rejected"
-                    }
-                ]
-            }
+          "name": "land_id",
+          "type": "u64"
+        },
+        {
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "name": "area",
+          "type": "string"
         }
-    ]
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Land",
+      "discriminator": [
+        189,
+        66,
+        11,
+        232,
+        213,
+        113,
+        244,
+        167
+      ]
+    },
+    {
+      "name": "TransferRequest",
+      "discriminator": [
+        200,
+        121,
+        88,
+        202,
+        12,
+        160,
+        237,
+        12
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized"
+    },
+    {
+      "code": 6001,
+      "name": "RequestNotPending",
+      "msg": "Request is not pending"
+    },
+    {
+      "code": 6002,
+      "name": "UnauthorizedSigner",
+      "msg": "Unauthorized signer"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidLandAccount",
+      "msg": "Invalid Land Account"
+    }
+  ],
+  "types": [
+    {
+      "name": "Land",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "name": "area",
+            "type": "string"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_verified",
+            "type": "bool"
+          },
+          {
+            "name": "transfer_count",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TransferRequest",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "land_id",
+            "type": "u64"
+          },
+          {
+            "name": "seller",
+            "type": "pubkey"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "TransferStatus"
+              }
+            }
+          },
+          {
+            "name": "is_buyer_approved",
+            "type": "bool"
+          },
+          {
+            "name": "is_gov_approved",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TransferStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pending"
+          },
+          {
+            "name": "Completed"
+          },
+          {
+            "name": "Rejected"
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -2,7 +2,7 @@
 
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Program, AnchorProvider, web3, BN } from "@coral-xyz/anchor";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PublicKey } from "@solana/web3.js";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
@@ -11,7 +11,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 // In a real app, importing IDs from target/types/land_registry.ts is best.
 import idl from "@/idl/land_registry.json";
 
-const PROGRAM_ID = new PublicKey("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
 
 export default function GovernmentDashboard() {
     const { connection } = useConnection();
@@ -21,6 +21,18 @@ export default function GovernmentDashboard() {
     const [location, setLocation] = useState("");
     const [area, setArea] = useState("");
     const [status, setStatus] = useState("");
+    const [balance, setBalance] = useState<number | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    // Fetch balance whenever wallet changes or status updates (e.g. after airdrop)
+    useEffect(() => {
+        setMounted(true);
+        if (!wallet.publicKey) {
+            setBalance(null);
+            return;
+        }
+        connection.getBalance(wallet.publicKey).then((bal) => setBalance(bal / web3.LAMPORTS_PER_SOL));
+    }, [wallet.publicKey, connection, status]);
 
     const registerLand = async () => {
         if (!wallet.publicKey) {
@@ -61,7 +73,10 @@ export default function GovernmentDashboard() {
         <div className="min-h-screen p-8 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
             <header className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold">Government Dashboard</h1>
-                <WalletMultiButton />
+                <div className="flex items-center gap-4">
+                    {balance !== null && <span className="text-sm font-mono">{balance.toFixed(2)} SOL</span>}
+                    {mounted && <WalletMultiButton />}
+                </div>
             </header>
 
             <div className="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
@@ -106,6 +121,28 @@ export default function GovernmentDashboard() {
                     </button>
 
                     {status && <p className="mt-4 text-sm break-words">{status}</p>}
+                </div>
+
+                <div className="mt-8 border-t pt-6">
+                    <h3 className="text-lg font-semibold mb-2">Dev Tools</h3>
+                    <button
+                        onClick={async () => {
+                            if (!wallet.publicKey) return;
+                            try {
+                                setStatus("Requesting airdrop...");
+                                const signature = await connection.requestAirdrop(wallet.publicKey, 2 * web3.LAMPORTS_PER_SOL);
+                                await connection.confirmTransaction(signature, "confirmed");
+                                setStatus("Airdrop successful! 2 SOL added.");
+                            } catch (err) {
+                                console.error(err);
+                                setStatus("Airdrop failed: " + (err as Error).message);
+                            }
+                        }}
+                        className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded font-medium"
+                    >
+                        Request Airdrop (2 SOL)
+                    </button>
+                    <p className="text-xs text-gray-500 mt-2">Use this if you get "insufficient funds" errors on Localnet.</p>
                 </div>
             </div>
         </div>

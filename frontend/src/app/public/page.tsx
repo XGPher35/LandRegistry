@@ -7,7 +7,7 @@ import { PublicKey } from "@solana/web3.js";
 
 import idl from "@/idl/land_registry.json";
 
-const PROGRAM_ID = new PublicKey("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
 
 export default function PublicPortal() {
     const { connection } = useConnection();
