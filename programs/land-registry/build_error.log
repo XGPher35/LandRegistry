@@ -1,0 +1,34 @@
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2021 which implies `resolver = "2"`
+  |
+  = note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+  = note: to use the edition 2021 resolver, specify `workspace.resolver = "2"` in the workspace root's manifest
+  = note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+    Checking ppv-lite86 v0.2.21
+   Compiling serde_derive v1.0.228
+   Compiling thiserror-impl v1.0.69
+   Compiling zeroize_derive v1.4.3
+    Checking ahash v0.8.12
+   Compiling ark-serialize-derive v0.4.2
+   Compiling derivative v2.2.0
+   Compiling ark-ff-asm v0.4.2
+   Compiling ark-ff-macros v0.4.2
+   Compiling toml_parser v1.0.6+spec-1.1.0
+   Compiling borsh-derive-internal v0.10.4
+   Compiling wasm-bindgen-macro-support v0.2.108
+   Compiling borsh v1.6.0
+   Compiling bv v0.11.1
+    Checking ahash v0.7.8
+    Checking rayon v1.11.0
+   Compiling blake3 v1.8.3
+    Checking hashbrown v0.13.2
+   Compiling borsh-schema-derive-internal v0.9.3
+   Compiling solana-frozen-abi v1.18.26
+    Checking rand_chacha v0.3.1
+    Checking rand_chacha v0.2.2
+error: failed to remove G:\LANDREGISTRY2\land-registry\target\debug\build\blake3-52924a979a30d724\build_script_build-52924a979a30d724.5nbizee5gw5xsbwqlthoshym3.rcgu.o: The process cannot access the file because it is being used by another process. (os error 32)
+
+error: could not compile `blake3` (build script) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: failed to remove G:\LANDREGISTRY2\land-registry\target\debug\deps\serde_derive-c9794b39bff71b31.serde_derive.74994bd312b3f469-cgu.03.rcgu.o: The process cannot access the file because it is being used by another process. (os error 32)
+
+error: could not compile `serde_derive` (lib) due to 1 previous error

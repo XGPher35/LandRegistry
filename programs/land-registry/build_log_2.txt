@@ -1,0 +1,32 @@
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2021 which implies `resolver = "2"`
+  |
+  = note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+  = note: to use the edition 2021 resolver, specify `workspace.resolver = "2"` in the workspace root's manifest
+  = note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+   Compiling unicode-ident v1.0.22
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.44
+   Compiling serde_core v1.0.228
+   Compiling version_check v0.9.5
+   Compiling serde v1.0.228
+   Compiling typenum v1.19.0
+    Checking cfg-if v1.0.4
+   Compiling syn v1.0.109
+   Compiling autocfg v1.5.0
+    Checking subtle v2.6.1
+   Compiling zerocopy v0.8.37
+   Compiling thiserror v1.0.69
+   Compiling zmij v1.0.19
+    Checking getrandom v0.2.17
+   Compiling anyhow v1.0.100
+    Checking once_cell v1.21.3
+    Checking rand_core v0.6.4
+   Compiling serde_json v1.0.149
+   Compiling crunchy v0.2.4
+error: failed to remove G:\LANDREGISTRY2\land-registry\target\debug\build\serde-aba84eb52986c428\build_script_build-aba84eb52986c428.3j632rpihnxo5q4wftmuxxodv.rcgu.o: The process cannot access the file because it is being used by another process. (os error 32)
+
+error: could not compile `serde` (build script) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: failed to remove G:\LANDREGISTRY2\land-registry\target\debug\build\typenum-8b372cd648e06078\build_script_build-8b372cd648e06078.build_script_build.73356472e9911198-cgu.0.rcgu.o: The process cannot access the file because it is being used by another process. (os error 32)
+
+error: could not compile `typenum` (build script) due to 1 previous error
