@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Shield, Github, ExternalLink } from "lucide-react";
 
 export default function Footer() {
@@ -29,13 +30,13 @@ export default function Footer() {
                         <h4 className="text-white font-semibold mb-4">Quick Links</h4>
                         <ul className="space-y-2">
                             <li>
-                                <a href="/public" className="hover:text-white transition-colors">Verify Land</a>
+                                <Link href="/public" className="hover:text-white transition-colors">Verify Land</Link>
                             </li>
                             <li>
-                                <a href="/owner" className="hover:text-white transition-colors">My Land</a>
+                                <Link href="/owner" className="hover:text-white transition-colors">My Land</Link>
                             </li>
                             <li>
-                                <a href="/gov" className="hover:text-white transition-colors">Government Portal</a>
+                                <Link href="/gov" className="hover:text-white transition-colors">Government Portal</Link>
                             </li>
                         </ul>
                     </div>

@@ -109,8 +109,18 @@ export default function GovernmentDashboard() {
             // Refresh balance
             const bal = await connection.getBalance(wallet.publicKey);
             setBalance(bal / web3.LAMPORTS_PER_SOL);
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            console.error("Transaction error:", err);
+
+            if (err.getLogs) {
+                try {
+                    const logs = await err.getLogs(connection);
+                    console.log("Transaction Logs:", logs);
+                } catch (logErr) {
+                    console.error("Failed to fetch logs:", logErr);
+                }
+            }
+
             toast.error("Registration failed: " + (err as Error).message, { id: loadingToast });
         } finally {
             setIsRegistering(false);
@@ -160,8 +170,18 @@ export default function GovernmentDashboard() {
 
             toast.success("Transfer approved!", { id: loadingToast });
             fetchPendingTransfers();
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            console.error("Transaction error:", err);
+
+            if (err.getLogs) {
+                try {
+                    const logs = await err.getLogs(connection);
+                    console.log("Transaction Logs:", logs);
+                } catch (logErr) {
+                    console.error("Failed to fetch logs:", logErr);
+                }
+            }
+
             toast.error("Approval failed: " + (err as Error).message, { id: loadingToast });
         }
     };
@@ -434,9 +454,16 @@ export default function GovernmentDashboard() {
 
                 {/* All Registered Lands */}
                 <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <button
+                    <div
                         onClick={() => setShowAllLands(!showAllLands)}
-                        className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+                        className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                setShowAllLands(!showAllLands);
+                            }
+                        }}
                     >
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -460,7 +487,7 @@ export default function GovernmentDashboard() {
                             </button>
                             {showAllLands ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
                         </div>
-                    </button>
+                    </div>
 
                     {showAllLands && (
                         <div className="p-6 pt-0">

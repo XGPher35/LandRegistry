@@ -125,8 +125,18 @@ export default function OwnerPortal() {
 
             toast.success("Transfer approved! Waiting for government approval.", { id: loadingToast });
             fetchMyData();
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            console.error("Transaction error:", err);
+
+            if (err.getLogs) {
+                try {
+                    const logs = await err.getLogs(connection);
+                    console.log("Transaction Logs:", logs);
+                } catch (logErr) {
+                    console.error("Failed to fetch logs:", logErr);
+                }
+            }
+
             toast.error("Approval failed: " + (err as Error).message, { id: loadingToast });
         }
     };
