@@ -88,9 +88,9 @@ git clone [your-repo-url]
 # Install dependencies
 npm install
 
-# Start the app
-npm run dev
-```
+  # Start the app
+  npm run dev
+  ```
 
 ### Quick Demo Flow
 
@@ -129,10 +129,8 @@ Even bribing officials won't work - they can't change blockchain records.
 
 ## 👥 Team
 
-[Your team names/info here]
-
+Arjit Chand
+Adarsha Pant 
+Swarnim Bajracharya
+Pranaya Shrestha
 ---
-
-## 📄 License
-
-[Your license]
