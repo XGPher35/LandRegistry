@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { Program, AnchorProvider, BN } from "@coral-xyz/anchor";
@@ -30,7 +30,7 @@ import idl from "@/idl/land_registry.json";
 
 const PROGRAM_ID = new PublicKey("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
-export default function PublicPortal() {
+function PublicPortalInner() {
     const { connection } = useConnection();
     const searchParams = useSearchParams();
 
@@ -420,5 +420,17 @@ export default function PublicPortal() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function PublicPortal() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+            </div>
+        }>
+            <PublicPortalInner />
+        </Suspense>
     );
 }

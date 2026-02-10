@@ -5,6 +5,12 @@
 A secure, immutable, and transparent land ownership system built on **Solana** using the **Anchor** framework.
 
 ---
+## 👥 Team
+
+Adarsha Pant
+Arjit Chand
+Pranaya Shrestha
+Swarnim Bajracharya
 
 ## 🇳🇵 The Problem
 
@@ -190,15 +196,5 @@ LandRegistry/
 - Compromise the entire Solana network (thousands of validators)
 
 Even bribing officials won't work - they cannot change blockchain records.
-
----
-
-## 📄 License
-
-MIT
-
----
-
-## 👥 Team
 
 Built for the Solana Hackathon 
