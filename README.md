@@ -7,10 +7,7 @@ A secure, immutable, and transparent land ownership system built on **Solana** u
 ---
 ## 👥 Team
 
-**Adarsha Pant
-**Arjit Chand
-**Pranaya Shrestha
-**Swarnim Bajracharya
+Adarsha Pant, Arjit Chand, Pranaya Shrestha, Swarnim Bajracharya
 
 ## 🇳🇵 The Problem
 
