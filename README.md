@@ -76,7 +76,7 @@ We're putting land records on the **Solana Blockchain** - making them permanent,
 
 ```bash
 # Clone the repository
-git clone <repo-url>
+git clone https://github.com/<your-username>/LandRegistry.git
 cd LandRegistry
 
 # Install frontend dependencies
@@ -111,23 +111,20 @@ solana airdrop 5
 anchor deploy
 ```
 
-### Configure Frontend
+### 🚨 Local-First Prototype Disclaimer
+**Why no live link?** This project is a working prototype designed specifically for **Solana Localnet/Devnet**. Because land registry involves sensitive government-level verification simulation, it is best demonstrated in a controlled environment to show the full multi-party approval flow (Buyer + Government). 
 
-```bash
-# Copy IDL to frontend
-cp target/idl/land_registry.json frontend/src/idl/
+**Demo Video available in the submission portal!**
 
-# Update PROGRAM_ID in frontend files with the deployed address
-```
+### 🎬 Step-by-Step Demo Flow
+To test the full capability of the dApp, follow this sequence:
 
-### Run the Application
-
-```bash
-cd frontend
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+1. **Gov Setup**: Connect your wallet as the "Government" official (using the `GOV_KEY` in `lib.rs`).
+2. **Register Land**: Go to the **Government Dashboard** and register a new land (e.g., ID `123`, Location `Kathmandu`).
+3. **Initiate Transfer**: Switch wallet to **Person 1** (Land Owner). Go to **My Land**, click **View Details** on your land, and click **Initiate Transfer**. Enter **Person 2's** wallet address.
+4. **Buyer Approval**: Switch wallet to **Person 2**. Go to **Owner Portal**. You will see an **Incoming Transfer**. Click **Approve & Accept**.
+5. **Gov Final Approval**: Switch back to **Government** wallet. Go to **Government Dashboard**. You will see the **Pending Transfer**. Click **Approve**.
+6. **Verification**: Go to the **Public Portal** and search for ID `123`. You will now see **Person 2** as the new verified owner with a full transfer history!
 
 ---
 
@@ -204,4 +201,4 @@ MIT
 
 ## 👥 Team
 
-Built with ❤️ for the Nepal Land Registry Hackathon
+Built for the Solana Hackathon 

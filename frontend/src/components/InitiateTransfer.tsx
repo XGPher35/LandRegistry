@@ -15,7 +15,7 @@ import {
     Wallet,
 } from "lucide-react";
 
-const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
+const PROGRAM_ID = new PublicKey("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
 interface InitiateTransferProps {
     landId: string;

@@ -2,13 +2,13 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program;
 use anchor_lang::solana_program::pubkey;
 
-declare_id!("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
+declare_id!("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
 // Hardcoded Government Official Key for MVP (Replace with real key in production)
 // For local testing, we might need to swap this.
-pub const GOV_KEY: Pubkey = pubkey!("73yGGVeAJuKQ5Z66vV6YbzZDXqL7yuC6mEw3WTC5Dcno"); 
-pub const PEOPLE_KEY_1: Pubkey = pubkey!("Dg9k48gNJMaqv4E5Hs3jSY8fhKkLw4H5X8AUVA2rn3Y4");
-pub const PEOPLE_KEY_2: Pubkey = pubkey!("6F994z3DQsvhwnNDxDE6ZE6Kr6UWpKs7DkZ3WmGbrAhb");
+pub const GOV_KEY: Pubkey = pubkey!("Gvxb73oKfNixFuBSHg616XSH8D3GDLRVXa1xhqdm3jD2"); 
+pub const PEOPLE_KEY_1: Pubkey = pubkey!("H91HXBAe4RDynwLBwGTcBdcdc3MguUcZpWzSkCRvvWm9");
+pub const PEOPLE_KEY_2: Pubkey = pubkey!("6hxJdZPPj7RncJRvkE565mzH3q9CwhKKWXvHxB8SH2DC");
 
 #[program]
 pub mod land_registry {

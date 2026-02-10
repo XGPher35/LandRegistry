@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-land_registry = "71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp"
+land_registry = "CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t"
 
 [registry]
 url = "https://api.apr.dev"

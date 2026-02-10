@@ -24,7 +24,7 @@ import {
     Wallet,
 } from "lucide-react";
 
-const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
+const PROGRAM_ID = new PublicKey("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
 export default function GovernmentDashboard() {
     const { connection } = useConnection();
@@ -136,8 +136,7 @@ export default function GovernmentDashboard() {
             const allRequests = await (program.account as any).transferRequest.all();
 
             const pending = allRequests.filter((req: any) => {
-                const status = req.account.status;
-                const isPending = status.pending !== undefined || status === "pending" || JSON.stringify(status).includes("pending");
+                const isPending = req.account.status && req.account.status.pending !== undefined;
                 return isPending && !req.account.isGovApproved;
             });
 

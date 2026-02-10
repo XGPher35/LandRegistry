@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { Program, AnchorProvider, BN } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
@@ -27,10 +28,11 @@ import {
 
 import idl from "@/idl/land_registry.json";
 
-const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
+const PROGRAM_ID = new PublicKey("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
 export default function PublicPortal() {
     const { connection } = useConnection();
+    const searchParams = useSearchParams();
 
     const [searchId, setSearchId] = useState("");
     const [landData, setLandData] = useState<any>(null);
@@ -38,6 +40,7 @@ export default function PublicPortal() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showQR, setShowQR] = useState(false);
+    const hasAutoSearched = useRef(false);
 
     const fetchHistory = async (landPda: PublicKey) => {
         try {
@@ -62,10 +65,15 @@ export default function PublicPortal() {
         }
     };
 
-    const verifyLand = async () => {
-        if (!searchId.trim()) {
+    const verifyLand = async (idOverride?: string) => {
+        const idToSearch = idOverride || searchId;
+        if (!idToSearch.trim()) {
             toast.error("Please enter a Land ID");
             return;
+        }
+
+        if (idOverride) {
+            setSearchId(idOverride);
         }
 
         setLoading(true);
@@ -77,7 +85,7 @@ export default function PublicPortal() {
             const provider = new AnchorProvider(connection, {} as any, {});
             const program = new Program(idl as any, provider);
 
-            const id = new BN(searchId);
+            const id = new BN(idToSearch);
             const [landPda] = PublicKey.findProgramAddressSync(
                 [Buffer.from("land"), id.toArrayLike(Buffer, "le", 8)],
                 PROGRAM_ID
@@ -97,6 +105,15 @@ export default function PublicPortal() {
             setLoading(false);
         }
     };
+
+    // Auto-search when ?id= query parameter is present
+    useEffect(() => {
+        const idParam = searchParams.get("id");
+        if (idParam && !hasAutoSearched.current) {
+            hasAutoSearched.current = true;
+            verifyLand(idParam);
+        }
+    }, [searchParams]);
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);

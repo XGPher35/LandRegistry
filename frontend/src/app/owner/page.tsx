@@ -22,7 +22,7 @@ import {
     FileCheck,
 } from "lucide-react";
 
-const PROGRAM_ID = new PublicKey("71SzaqeYfGgPp6X6ajhZzvUwDCd1R8GxYrkHchwrBoUp");
+const PROGRAM_ID = new PublicKey("CTVU4tR5QQ6g3rkY8rJLJptJGf9SwXzGjfoPkJtgZh8t");
 
 export default function OwnerPortal() {
     const { connection } = useConnection();
@@ -85,11 +85,11 @@ export default function OwnerPortal() {
 
             // Outgoing: where I am the seller and status is pending
             const outgoing = allTransfers.filter((req: any) => {
-                const status = req.account.status;
-                const isPending = status.pending !== undefined;
+                const isPending = req.account.status && req.account.status.pending !== undefined;
                 return (
                     req.account.seller.toString() === wallet.publicKey?.toString() &&
-                    isPending
+                    isPending &&
+                    !req.account.isGovApproved
                 );
             });
             setOutgoingTransfers(outgoing);
