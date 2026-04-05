@@ -79,7 +79,7 @@ We're putting land records on the **Solana Blockchain** - making them permanent,
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/LandRegistry.git
+git clone https://github.com/XGPher35/LandRegistry.git
 cd LandRegistry
 
 # Install frontend dependencies
